@@ -1,0 +1,31 @@
+database:
+  drivername: postgresql
+  host: localhost
+  dbname: postgres
+  user: postgres
+  port: 5432
+  schema: rentals
+  table: raw
+data:
+  features:
+    - year_built
+    - area
+    - bedrooms
+    - bathrooms
+    - garden_size
+    - balcony
+    - parking
+    - furnished
+    - garage
+    - storage
+    - neighborhood_id
+  target: rent
+model:
+  hyperparams:
+    base_score: 0.5
+    n_jobs: -1
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.3
+    gamma: 0.1
+    early_stopping_rounds: 20
