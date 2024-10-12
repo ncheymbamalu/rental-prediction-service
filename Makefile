@@ -5,7 +5,7 @@ install: pyproject.toml
 	poetry install
 
 check: install
-	flake8 src
+	ruff check ./src
 
 predict:
 	poetry run python src/inference.py
