@@ -22,4 +22,8 @@ jobs:
       uses: ./.github/actions/build-application
 
     - name: Check code quality
-      run: make check
+      run: |
+        pwd
+        ls -lh
+        cd src
+        ruff check
