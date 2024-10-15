@@ -24,13 +24,14 @@ def encode_binary_features(data: pd.DataFrame) -> pd.DataFrame:
         categorical features have been encoded.
     """
     try:
-        binary_features: list[str] = [
-            col for col in data.select_dtypes(include="object").columns
-            if len(data[col].unique()) == 2
-        ]
-        return (
-            pd.get_dummies(data, columns=binary_features, drop_first=True)
-            .rename(dict(zip([f"{col}_yes" for col in binary_features], binary_features)), axis=1)
+        encoder: dict[str, bool] = {"no": False, "yes": True}
+        binary_features: ListConfig = DATA_CONFIG.binary_features
+        return pd.concat(
+            (
+                data.drop(binary_features, axis=1),
+                data[binary_features].apply(lambda col: col.map(encoder))
+            ),
+            axis=1
         )
     except Exception as e:
         raise e

@@ -6,28 +6,11 @@ from pathlib import PosixPath
 
 import pandas as pd
 
-from pydantic import BaseModel
 from xgboost import XGBRegressor
 
 from src.config import Paths
-from src.data import encode_neighborhood_ids
+from src.data import encode_binary_features, encode_neighborhood_ids
 from src.logger import logger
-
-
-class Record(BaseModel):
-    """Represents an input record for the ML model."""
-
-    year_built: int
-    area: float
-    bedrooms: int
-    bathrooms: int
-    garden_size: float
-    balcony: bool
-    parking: bool
-    furnished: bool
-    garage: bool
-    storage: bool
-    neighborhood_id: int
 
 
 class ModelInferenceService:
@@ -66,7 +49,7 @@ class ModelInferenceService:
         with open(self.model_path, "rb") as file:
             self.model = pickle.load(file)
 
-    def predict(self, record: Record) -> int:
+    def predict(self, record: dict[str, float | int | str]) -> int:
         """Makes a prediction using 'model'.
 
         Args:
@@ -76,6 +59,11 @@ class ModelInferenceService:
             int: Rental prediction.
         """
         logger.info("Generating the prediction...")
-        x: pd.DataFrame = pd.DataFrame([record.model_dump()]).pipe(encode_neighborhood_ids)
+        x: pd.DataFrame = (
+            pd.DataFrame([record])
+            .pipe(encode_binary_features)
+            .pipe(encode_neighborhood_ids)
+            [self.model.feature_names_in_]
+        )
         prediction: float = self.model.predict(x)[0]
         return max(0, int(round(prediction)))

@@ -7,17 +7,23 @@ database:
   schema: rentals
   table: raw
 data:
+  binary_features:
+    - furnished
+    - storage
+    - garage
+    - parking
+    - balcony
   features:
     - year_built
     - area
     - bedrooms
     - bathrooms
-    - garden_size
-    - balcony
-    - parking
     - furnished
-    - garage
     - storage
+    - garage
+    - parking
+    - balcony
+    - garden_size
     - neighborhood_id
   target: rent
 model:
