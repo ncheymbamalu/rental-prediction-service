@@ -15,13 +15,13 @@ class ModelBuilderService:
         model_path (PosixPath): Trained ML model's file path. Defaults to Paths.MODEL.
 
     Methods:
-        __init__: Constructor that initializes the ModelBuilder.
+        __init__: Constructor that initializes the ModelBuilderService.
         build_model: Trains, evaluates, and saves a ML model to 'model_path' if
         'model_path' doesn't exist.
     """
 
     def __init__(self) -> None:
-        """Initializes the ModelBuilder."""
+        """Initializes the ModelBuilderService."""
         self.model_path: PosixPath = Paths.MODEL
 
     def build_model(self) -> None:

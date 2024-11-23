@@ -22,14 +22,14 @@ class ModelInferenceService:
         model (None | XGBRegressor): Trained ML model. Defaults to None.
 
     Methods:
-        __init__: Constructor that initializes the ModelInference.
+        __init__: Constructor that initializes the ModelInferenceService.
         load_model: Loads the trained ML model from 'model_path' or raises
         FileNotFoundError if 'model_path' doesn't exist.
         predict: Makes a prediction using 'model'.
     """
 
     def __init__(self) -> None:
-        """Initializes the ModelInference."""
+        """Initializes the ModelInferenceService."""
         self.model_path: PosixPath = Paths.MODEL
         self.model: None | XGBRegressor = None
 

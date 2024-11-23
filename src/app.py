@@ -41,7 +41,7 @@ def get_prediction(user_input: RentalHome):
     """
     try:
         # get the input record
-        record: dict[str, float | int| str] = user_input.model_dump()
+        record: dict[str, float | int | str] = user_input.model_dump()
 
         # instantiate the inference service
         service: ModelInferenceService = ModelInferenceService()
