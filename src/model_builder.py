@@ -1,4 +1,4 @@
-"""This module provides functionality for building a ML model."""
+"""This module provides functionality for building an ML model."""
 
 from pathlib import PosixPath
 
@@ -16,8 +16,8 @@ class ModelBuilderService:
 
     Methods:
         __init__: Constructor that initializes the ModelBuilderService.
-        build_model: Trains, evaluates, and saves a ML model to 'model_path' if
-        'model_path' doesn't exist.
+        build_model: Trains, evaluates, and saves an object of type, 'XGBRegressor', to 
+        'model_path', if 'model_path' doesn't exist.
     """
 
     def __init__(self) -> None:
@@ -25,11 +25,14 @@ class ModelBuilderService:
         self.model_path: PosixPath = Paths.MODEL
 
     def build_model(self) -> None:
-        """Trains, evaluates, and saves a ML model to 'model_path' if
+        """Trains, evaluates, and saves an object of type, 'XGBRegressor', to 'model_path', if
         'model_path' doesn't exist.
         """
         if self.model_path.exists():
-            logger.info(f"'{self.model_path}' exists. Skipping the model building process.")
+            logger.info(
+                f"'~/{self.model_path.parent.stem}/{self.model_path.name}' exists. \
+Skipping the model building process."
+            )
         else:
             logger.info("Initiating the model building process.")
             build_model()

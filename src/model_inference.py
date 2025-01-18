@@ -37,15 +37,18 @@ class ModelInferenceService:
         """Loads the trained ML model from 'model_path'
 
         Raises:
-            FileNotFoundError: If 'model_path' path doesn't exist.
+            FileNotFoundError: If 'model_path' doesn't exist.
         """
-        logger.info(f"Checking if '{self.model_path}' exists.")
+        logger.info(f"Checking if '~/{self.model_path.parent.stem}/{self.model_path.name}' exists.")
         # if 'model_path' doesn't exist, raise an error
         if not self.model_path.exists():
             raise FileNotFoundError(f"'{self.model_path}' not found!")
 
         # else, load 'model_path'
-        logger.info(f"'{self.model_path}' found. Loading the trained ML model.")
+        logger.info(
+            f"'~/{self.model_path.parent.stem}/{self.model_path.name}' found. \
+Loading the trained ML model."
+        )
         with open(self.model_path, "rb") as file:
             self.model = pickle.load(file)
 

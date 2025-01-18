@@ -1,4 +1,4 @@
-"""This module provides functionality to handle ML model building process."""
+"""This module provides functionality for the ML model building process."""
 
 import pickle
 

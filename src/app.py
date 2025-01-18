@@ -14,6 +14,7 @@ app: FastAPI = FastAPI(
 
 
 class RentalHome(BaseModel):
+    """Represents a rental home in Amsterdam."""
     year_built: PositiveFloat = Field(
         default=datetime.now().year, ge=1900, le=datetime.now().year, alias="Year Built",
     )
