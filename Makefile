@@ -1,4 +1,4 @@
-.PHONY: install check train predict backend clean runner_train runner_predict runner_backend
+.PHONY: install check data train predict backend clean runner_train runner_predict runner_backend
 .DEFAULT_GOAL:=runner_backend
 
 install: pyproject.toml
@@ -6,6 +6,9 @@ install: pyproject.toml
 
 check: install
 	poetry run ruff check src
+
+data: check
+	poetry run python src/database.py
 
 train:
 	poetry run python src/run_model_builder.py

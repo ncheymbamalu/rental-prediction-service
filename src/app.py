@@ -1,6 +1,6 @@
 """This module contains a POST endpoint to trigger a ML model for predicting rental home prices."""
 
-from datetime import datetime
+import pandas as pd
 
 from fastapi import FastAPI
 from pydantic import BaseModel, Field, NonNegativeFloat, PositiveFloat, PositiveInt
@@ -15,8 +15,11 @@ app: FastAPI = FastAPI(
 
 class RentalHome(BaseModel):
     """Represents a rental home in Amsterdam."""
-    year_built: PositiveFloat = Field(
-        default=datetime.now().year, ge=1900, le=datetime.now().year, alias="Year Built",
+    year_built: PositiveInt = Field(
+        default=pd.Timestamp.utcnow().year,
+        ge=1900,
+        le=pd.Timestamp.utcnow().year,
+        alias="Year Built",
     )
     area: PositiveFloat = Field(default=150.0, gt=0, alias="Area (m²)")
     bedrooms: PositiveInt = Field(default=3, ge=1, alias="Beds")
